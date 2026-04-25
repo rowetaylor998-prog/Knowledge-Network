@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
-import ComputerTree from './components/ComputerTree.vue'
+import ComputerTree from './Components/ComputerTree.vue'
 import type { EnhanceAppContext } from 'vitepress'
 
 export default {
