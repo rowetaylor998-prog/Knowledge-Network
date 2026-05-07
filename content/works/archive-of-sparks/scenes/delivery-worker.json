@@ -1,0 +1,46 @@
+{
+  "id": "delivery-worker",
+  "title": "Delivery Worker",
+  "chapter": "chapter-0-trapped-people",
+  "status": "placeholder",
+  "description": "A starter scene placeholder about platform labor, time pressure, routes, incentives, and choices under constraint.",
+  "characters": [
+    {
+      "id": "worker",
+      "name": "Delivery Worker",
+      "role": "Protagonist"
+    }
+  ],
+  "setting": {
+    "location": "City delivery route",
+    "time": "Near the end of a long shift"
+  },
+  "beats": [
+    {
+      "id": "opening",
+      "summary": "The worker receives a new order while already under time pressure."
+    }
+  ],
+  "choices": [
+    {
+      "id": "accept-order",
+      "label": "Accept the order",
+      "consequence": "Explore income pressure, platform ranking, and time constraints."
+    },
+    {
+      "id": "pause",
+      "label": "Pause and review the situation",
+      "consequence": "Explore fatigue, risk, and decision-making under constraint."
+    }
+  ],
+  "knowledgeLinks": [
+    "content/knowledge/marxism-political-economy/introduction.md",
+    "content/methods-and-lessons/psychology-learning-collaboration.md"
+  ],
+  "todos": [
+    "Write full scene dialogue.",
+    "Add branching outcomes.",
+    "Connect choices to knowledge explanations.",
+    "Define AI tutor reflection prompts."
+  ]
+}

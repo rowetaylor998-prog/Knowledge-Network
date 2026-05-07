@@ -1,6 +1,44 @@
+# Environment files and secrets
+.env
+*.env
+backend/.env
+apps/web/.env
+*.pem
+*.key
+
+# Dependencies and virtual environments
 node_modules
+node_modules/
+.venv
+.venv/
+backend/.venv
+backend/.venv/
+
+# Python cache
+__pycache__
+__pycache__/
+*.py[cod]
+
+# Build output and generated caches
+dist/
 .vitepress/dist
 .vitepress/cache
+.vitepress/.temp
+apps/web/dist
+*.tsbuildinfo
+
+# OS and misc caches
 .DS_Store
 cache
 deps
+# macOS AppleDouble resource fork files
+._*
+
+# VitePress generated files
+.vitepress/dist/
+.vitepress/.temp/
+.vitepress/cache/
+
+# Frontend accidental Python venv
+apps/web/.venv/
+apps/web/.venv
