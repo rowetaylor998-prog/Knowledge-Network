@@ -1,0 +1,243 @@
+# 无产阶级人物索引库数据质量报告
+
+本报告记录从 AI 草稿工作流迁移到“经典索引简介 + 作者人工立场评价”工作流后的数据状态。
+
+## 当前状态
+
+- 当前人物总数：571
+- 成功匹配到 index_summary 的人数：90
+- 未匹配到 index_summary 的人数：481
+- author_stance_summary 已填写人数：0
+- author_stance_summary 待填写人数：571
+- AI 草稿已迁移人数：571
+
+## 高风险 OCR 匹配列表
+
+- 6. 格奥尔格·威廉·弗里德里希·黑格尔 / Georg Wilhelm Friedrich Hegel：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C003087，raw=黑格尔，foreign=Hegel,Georg Wilhelm Fried- rich，source_page=351
+- 11. 卡尔·考茨基 / Karl Kautsky：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C003919，raw=考茨基，foreign=Kautsky, Karl，source_page=421
+- 17. 罗伯特·欧文 / Robert Owen：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C005528，raw=欧文，foreign=Owen, Robert，source_page=679
+- 25. 托马斯·马尔萨斯 / Thomas Malthus：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C004720，raw=马尔萨斯，foreign=Malthus, Thomas Robert，source_page=579
+- 29. 纳骚·西尼尔 / Nassau Senior：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C006555，raw=西尼耳，foreign=Senior, Nassau William，source_page=893
+- 34. 托马斯·霍布斯 / Thomas Hobbes：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C003258，raw=霍布斯，foreign=Hobbes,Thomas，source_page=361
+- 51. 查尔斯·达尔文 / Charles Darwin：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C001796，raw=达尔文，foreign=Darwin, Charles Robert，source_page=191
+- 54. 勒内·笛卡尔 / René Descartes：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C001883，raw=笛卡儿，foreign=Descartes, Rene，source_page=220
+- 61. 伏尔泰 / Voltaire：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C007344，raw=伏尔泰，foreign=Voltaire, Franqois-Marie，source_page=269
+- 64. 乔治·丹东 / Georges Danton：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C001790，raw=开东，foreign=Danton, Georges-Jacques，source_page=198
+- 74. 卡尔·李卜克内西 / Karl Liebknecht：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C004470，raw=李卜克内西，foreign=Liebknecht, Karl，source_page=503
+- 76. 奥古斯特·倍倍尔 / August Bebel：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C000557，raw=倍倍尔，foreign=Bebel, August ker, Karl，source_page=161
+- 93. 赫伯特·斯宾塞 / Herbert Spencer：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C006707，raw=斯宾塞，foreign=Spencer,Herbert，source_page=782
+- 100. 欧内斯特·贝尔福特·巴克斯 / Ernest Belfort Bax：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C000524，raw=巴克斯，foreign=Bax, Ernest Belfort，source_page=146
+- 122. 欧仁·瓦尔兰 / Eugène Varlin：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C007258，raw=瓦尔兰，foreign=Varlin,Louis-Eugene，source_page=832
+- 131. 泰奥菲勒·费雷 / Théophile Ferré：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C002404，raw=费雷，foreign=Ferre, Theophile-Charles，source_page=257
+- 137. 让·阿勒曼 / Jean Allemane：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C000169，raw=阿列曼，foreign=Allemane, Jean，source_page=110
+- 271. 维克多·德·米拉波 / Victor de Riqueti Mirabeau：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C005061，raw=米拉波侯爵，foreign=Mirabeau, Victor-Riqueti, marquis de，source_page=633
+- 369. 雅克·埃贝尔 / Jacques Hébert：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C001424，raw=阿贝尔，foreign=CHebert, Jacques-Rene，source_page=12
+- 417. 塞西尔·罗得斯 / Cecil Rhodes：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C006084，raw=罗得斯，foreign=Rhodes, Cecil John，source_page=556
+- 459. 维尔纳·冯·西门子 / Werner von Siemens：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C006604，raw=西门子，foreign=Siemens, Ernst Werner，source_page=890
+- 503. 阿尔伯特·爱因斯坦 / Albert Einstein：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C002149，raw=爱因斯坦，foreign=Einstein, Al- bert，source_page=123
+- 505. 马克斯·普朗克 / Max Planck：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C005777，raw=路德维希，foreign=Planck,Max Karl Ernst Ludwig，source_page=656
+- 559. 让-巴蒂斯特·拉马克 / Jean-Baptiste Lamarck：写入匹配仍需人工复核：候选项需审或外文名含额外 token；候选 C005753，raw=極与克，foreign=Pierre-Antoine Lamarck, Jean-Baptiste，source_page=479
+
+## 低置信候选但未写入列表
+
+- 1. 卡尔·马克思 / Karl Marx：C004815 raw=马克思 foreign=Marx, Francis Joseph Peter conf=0.35 page=585；C004816 raw=马克思 foreign=Marx, Franziska conf=0.85 page=585；C004817 raw=马克思 foreign=Marx, Heinrich conf=0.85 page=585；C004818 raw=马克思 foreign=Marx, Heinrich Guido conf=0.85 page=586
+- 2. 弗里德里希·恩格斯 / Friedrich Engels：C002204 raw=恩格斯 foreign=Engels, August conf=0.85 page=238；C002215 raw=恩格斯 foreign=Engels, Johann Caspar conf=0.85 page=241；C002219 raw=恩格斯 foreign=Engels, Rudolf conf=0.85 page=240；C002220 raw=恩格斯 foreign=Engels, Rudolf Moritz conf=0.85 page=240
+- 3. 弗拉基米尔·列宁 / Vladimir Lenin：C003715 raw=列宁 foreign=Jle conf=0.85 page=516；C008610 raw=列宁 foreign=BoCnOMHIaHHA O B.M. JeanHe conf=0.35 page=447
+- 8. 皮埃尔-约瑟夫·蒲鲁东 / Pierre-Joseph Proudhon：C005894 raw=蒲魯东 foreign=Proudhon, Pierre-Joseph conf=0.35 page=704
+- 9. 斐迪南·拉萨尔 / Ferdinand Lassalle：C003428 raw=拉萨尔 foreign=Iassalle, Ferdinand conf=0.85 page=482；C011260 raw=拉萨尔 foreign=Lassalle, Ferdi conf=0.55 page=479
+- 10. 欧根·杜林 / Eugen Dühring：C001917 raw=杜林 foreign=Dihring, Eugen Karl conf=0.85 page=228；C001918 raw=杜林 foreign=Diihring, Fugen Karl conf=0.85 page=266
+- 16. 米哈伊尔·巴枯宁 / Mikhail Bakunin：C000264 raw=巴枯宁 foreign=ApoBny conf=0.85 page=147；C000266 raw=巴枯宁 foreign=Aponnu conf=0.85 page=146；C002081 raw=巴枯宁 foreign=Eaxynun,Mnxann A neKCaHAPO- Bn conf=0.85 page=80；C010299 raw=巴枯宁 foreign=APOBY conf=0.55 page=148
+- 18. 夏尔·傅立叶 / Charles Fourier：C002504 raw=傅立叶 foreign=Fourier, Jean-Baptiste.Joseph conf=0.35 page=287
+- 19. 昂利·德·圣西门 / Henri de Saint-Simon：C004494 raw=兰盖 foreign=Linguet, Simon-Nicolas-Henri conf=0.35 page=496；C015543 raw=马赫 foreign=Sahli,H. , Schliiter, H. , Saint-Just, L. A. , Schmid, A. , Schmid, J. , Saint-Simon, H. C. , Schmidt,C. , Schmidt, F. J. , Salandra,A. , Schmidt, H. , Salignac conf=0.55 page=1021
+- 22. 弗朗索瓦·魁奈 / François Quesnay：C005943 raw=魁奈 foreign=Quesnay, Franqois conf=0.85 page=465；C005944 raw=魁奈 foreign=Quesnay,Frangois conf=0.85 page=466；C015570 raw=魁奈 foreign=Remy, L. , Quessel, L. , Renan, F. J. , Renaudel, P. , R Renner, K. , Raab, F. , Renoult, D conf=0.55 page=1019
+- 28. 约翰·斯图亚特·密尔 / John Stuart Mill：C010076 raw=密勒 foreign=Miller,John conf=0.55 page=637
+- 47. 加里·贝克尔 / Gary Becker：C000563 raw=贝克尔 foreign=Becker, August conf=0.35 page=106；C000565 raw=贝克尔 foreign=Becker, Felix conf=0.85 page=106；C000568 raw=贝克尔 foreign=Becker, Oskar conf=0.85 page=106；C000569 raw=贝克尔 foreign=Becker, Wilhelm Adolf conf=0.85 page=107
+- 48. 詹姆斯·布坎南 / James Buchanan：C001101 raw=布坎南 foreign=Buchanan,Andrew conf=0.85 page=161；C001102 raw=布坎南 foreign=Buchanan,David conf=0.35 page=161；C001103 raw=布坎南 foreign=Buchanan,James conf=0.85 page=161
+- 52. 艾萨克·牛顿 / Isaac Newton：C005530 raw=牛顿 foreign=Oxford conf=0.85 page=671；C012851 raw=牛顿 foreign=Newton, William conf=0.55 page=671
+- 53. 弗朗西斯·培根 / Francis Bacon：C009576 raw=培根 foreign=Bacon,Francis conf=0.55 page=646
+- 60. 让-雅克·卢梭 / Jean-Jacques Rousseau：C009107 raw=卢梭 foreign=Rousseau, Jean conf=0.55 page=530；C009103 raw=卢校 foreign=Rousseau, Jean-Jacques conf=0.55 page=545
+- 65. 拿破仑·波拿巴 / Napoleon Bonaparte：C000902 raw=长兄 foreign=Bonaparte, Joseph- Charles-Paul, Prince Napoleon conf=0.35 page=138
+- 66. 路易·波拿巴 / Louis Bonaparte：C000903 raw=波拿巴 foreign=Bonaparte, Louis conf=0.85 page=137；C000906 raw=波拿巴 foreign=Bonaparte,Eugene-Louis-Jean- Joseph conf=0.85 page=138
+- 68. 亚伯拉罕·林肯 / Abraham Lincoln：C004487 raw=林肯 foreign=Lincoln, J conf=0.85 page=537；C004495 raw=林肯 foreign=Linkenbach conf=0.85 page=538
+- 71. 埃蒂安·卡贝 / Étienne Cabet：C001179 raw=卡贝 foreign=Cabet, Etienne conf=0.35 page=391
+- 73. 威廉·李卜克内西 / Wilhelm Liebknecht：C004473 raw=李卜克內西 foreign=Liebknecht, Wilhelm conf=0.35 page=518
+- 77. 弗兰茨·梅林 / Franz Mehring：C004920 raw=梅林 foreign=Mehring,Franz conf=0.35 page=617；C012288 raw=梅林 foreign=Mehring, Franz conf=0.55 page=584
+- 87. 托克维尔 / Alexis de Tocqueville：C007062 raw=托克维尔 foreign=Tocquerille, Alexis conf=0.35 page=827
+- 88. 马克斯·韦伯 / Max Weber：C007271 raw=韦伯 foreign=Veber,Adrien conf=0.85 page=849；C007419 raw=韦伯 foreign=Webb, James Watson conf=0.35 page=849；C007422 raw=韦伯 foreign=Weber, Carl Maria conf=0.85 page=849；C007425 raw=韦伯 foreign=Weber, Wilhelm Eduard conf=0.85 page=849
+- 95. 欧内斯特·曼德尔 / Ernest Mandel：C011828 raw=曼德尔 foreign=Mandl, Heinrich conf=0.55 page=611
+- 102. 艾琳娜·马克思 / Eleanor Marx：C004826 raw=马克思-艾威林 foreign=Marx-Aveling, Eleanor conf=0.35 page=583
+- 104. 保尔·拉法格 / Paul Lafargue：C004268 raw=拉法格 foreign=Lafargue,Paul conf=0.35 page=471
+- 105. 夏尔·龙格 / Charles Longuet：C004539 raw=龙格 foreign=Longuet, Charles conf=0.35 page=541；C004540 raw=龙格 foreign=Longuet, Charles conf=0.35 page=526
+- 107. 威廉·沃尔弗 / Wilhelm Wolff：C007593 raw=沃尔邦 foreign=Wolff, Wilhelm conf=0.4 page=874
+- 108. 约瑟夫·魏德迈 / Joseph Weydemeyer：C007476 raw=魏德迈 foreign=Weydemeyer, Joseph conf=0.35 page=866
+- 112. 约翰·菲利普·贝克尔 / Johann Philipp Becker：C000572 raw=页克尔 foreign=Becker,Johann Philipp conf=0.35 page=108
+- 113. 弗里德里希·左尔格 / Friedrich Sorge：C006689 raw=左尔格 foreign=Sorge,Friedrich Adolph conf=0.35 page=936
+- 118. 罗伯特·阿普尔加思 / Robert Applegarth：C000268 raw=阿普耳加思 foreign=Applegarth,Robert conf=0.85 page=31
+- 119. 约翰·格奥尔格·埃卡留斯 / Johann Georg Eccarius：C002111 raw=埃卡留斯 foreign=Eccarius, Johann Georg conf=0.35 page=37；C009491 raw=埃卡留斯 foreign=Eccarius, Johann Friedrich conf=0.55 page=37
+- 126. 夏尔·德勒克吕兹 / Charles Delescluze：C001851 raw=德勒克吕兹 foreign=Delescluze, Louis-Charles conf=0.35 page=207
+- 127. 儒勒·瓦莱斯 / Jules Vallès：C007241 raw=瓦系斯 foreign=Valles, Jules conf=0.35 page=835
+- 129. 普罗斯佩尔-奥利维耶·利萨加雷 / Prosper-Olivier Lissagaray：C004501 raw=利沙加勒 foreign=Lissagaray, Prosper Olivier conf=0.4 page=510
+- 130. 伯努瓦·马隆 / Benoît Malon：C004716 raw=马隆 foreign=Malon,Benoit conf=0.35 page=593
+- 138. 埃米尔·王德威尔得 / Émile Vandervelde：C007253 raw=王德威尔得 foreign=Vandervelde, Emile conf=0.35 page=839
+- 143. 卡尔·伦纳 / Karl Renner：C001030 raw=布伦纳 foreign=Brenner, Johann Karl conf=0.35 page=177
+- 147. 西尔维娅·潘克赫斯特 / Sylvia Pankhurst：C012805 raw=潘克赫斯特 foreign=Pankhurst, Sylvia conf=0.55 page=644
+- 211. 爱德华·帕尔默·汤普森 / E. P. Thompson：C007001 raw=汤普逊 foreign=Thompson, Jacob conf=0.35 page=811；C007003 raw=汤普逊 foreign=Thompson, Thomas Perronet conf=0.35 page=811；C007005 raw=汤普逊 foreign=Thompson,George conf=0.35 page=811；C012315 raw=梯也尔 foreign=Tuntar, G. , Thomas, A. , Turati, F. , Thomas Aquinas Tyszka, J. , Thomas, C. , Thomas, J. H, , Ueberweg,F. , Thompson,W. , Ulanowski, W. , Thomson, J. J. , Tho conf=0.55 page=1024
+- 248. 朱德 / Zhu De：C005438 raw=奥伯尼茨 foreign=Obernitz,Hugo conf=0.35 page=58；C012651 raw=泽耳姆尼茨 foreign=Selmnitz, Hugo von conf=0.55 page=932
+- 260. 贺龙 / He Long：C001212 raw=卡龙林-费诺菜特 foreign=Calonge y Fenollet, Eusebio conf=0.35 page=400；C002021 raw=杜隆 foreign=Dulong,Frangois-Charles conf=0.35 page=228；C004224 raw=朗梅德 foreign=L.ongmaid, John conf=0.85 page=499；C004537 raw=兰西尔 foreign=Longos conf=0.85 page=498
+- 265. 托马斯·孟 / Thomas Mun：C005248 raw=曼罗 foreign=Munro, Thomas conf=0.35 page=611
+- 266. 乔赛亚·蔡尔德 / Josiah Child：C001436 raw=柴尔德 foreign=Child,Josiah conf=0.35 page=188
+- 269. 安·罗伯特·雅克·杜尔哥 / Anne Robert Jacques Turgot：C007174 raw=杜尔哥 foreign=Turgot, Anne-Robert-Jacques conf=0.35 page=225
+- 279. 托马斯·霍吉斯金 / Thomas Hodgskin：C003275 raw=霍吉斯金 foreign=Hodgskin,Thomas conf=0.35 page=366
+- 281. 爱德华·吉本·韦克菲尔德 / Edward Gibbon Wakefield：C007364 raw=威克菲尔德 foreign=Wakefield, Edward conf=0.85 page=842；C007365 raw=威克菲尔德 foreign=Wakefield, Edward Gibbon conf=0.35 page=842
+- 283. 安托万·德斯蒂·德·特拉西 / Antoine Destutt de Tracy：C014680 raw=贾努-格里亚 foreign=Deschanel, P. , Dodwell, H. , Deslinieres, L. , Domski, H. , D'Ester, K. L. J. , Donohoe, M. H. , Drechsler,G. , Destrbe, J. , Drews, A. , Destutt de Tracy, A.  conf=0.55 page=1006
+- 284. 佩莱格里诺·罗西 / Pellegrino Rossi：C006245 raw=罗西 foreign=Rossi,Pellegrino Luigi conf=0.35 page=566
+- 285. 亨利·乔治 / Henry George：C000880 raw=博恩 foreign=Bohn, Henry George conf=0.85 page=151；C002670 raw=乔治 foreign=George,Henry conf=0.35 page=717；C002831 raw=格雷 foreign=Grey, Henry George conf=0.35 page=308；C004832 raw=梅森 foreign=Mason, George Henry Monck conf=0.85 page=619
+- 287. 亚历山大·汉密尔顿 / Alexander Hamilton：C002959 raw=汉密尔顿 foreign=Hamilton, Alexander conf=0.85 page=340；C006765 raw=斯蒂文斯 foreign=Stephens, Alexander Hamilton conf=0.35 page=783
+- 357. 罗伯特·皮尔 / Robert Peel：C005639 raw=皮尔 foreign=Peel, Robert conf=0.85 page=699；C005641 raw=皮尔 foreign=Peel,Robert conf=0.35 page=699；C005642 raw=皮尔 foreign=Peel,Robert conf=0.35 page=699
+- 360. 威廉·格莱斯顿 / William Gladstone：C002730 raw=格莱斯顿 foreign=Gladstone, William Ewart conf=0.35 page=304
+- 364. 路易十六 / Louis XVI：C004568 raw=路易十六 foreign=Louis XVI conf=0.35 page=537
+- 367. 奥诺雷·米拉波 / Honoré Gabriel Riqueti Mirabeau：C005061 raw=米拉波侯爵 foreign=Mirabeau, Victor-Riqueti, marquis de conf=0.85 page=633
+- 371. 塔列朗 / Charles Maurice de Talleyrand：C006901 raw=达来朗-贝里戈尔 foreign=Talleyrand.Perigord, Charles- .Maurice conf=0.35 page=193
+- 373. 阿尔方斯·德·拉马丁 / Alphonse de Lamartine：C004286 raw=拉马丁 foreign=Lamartine, Alphonse conf=0.35 page=479
+- 374. 路易·菲利普一世 / Louis Philippe I：C000353 raw=奥马尔公爵 foreign=Aumale,Henri- Eugene-Philippe-Louis d'Orleans, duc d' conf=0.85 page=68；C003763 raw=茹安维尔亲王 foreign=Joinville, François-Ferdinand-Philippe-Louis-Marie, duc d'Or- Ieans, prince de conf=0.85 page=727；C005162 raw=蒙潘西埃公爵 foreign=Montpensier, Antoine- Marie-Philippe-Louis, duc de conf=0.85 page=626；C005331 raw=奈穆尔公爵 foreign=Nemours, Louis- Charles-Philippe-Raphael d'Orleans, duc de conf=0.35 page=665
+- 376. 茹尔·费里 / Jules Ferry：C002409 raw=费里 foreign=Ferry, Jules-Franqois-Camille conf=0.35 page=257
+- 377. 乔治·克列孟梭 / Georges Clemenceau：C001496 raw=克列孟板 foreign=Clemenceau, Georges.Benjamin conf=0.35 page=450
+- 380. 梅特涅 / Klemens von Metternich：C004982 raw=梅特涅 foreign=Metternich, Clemens conf=0.85 page=620
+- 392. 尼古拉一世 / Nicholas I of Russia：C003250 raw=尼古拉一世 foreign=Hnkonan conf=0.85 page=667
+- 395. 尼古拉二世 / Nicholas II：C003243 raw=尼古拉二世 foreign=HnK, Bacu.ibae conf=0.35 page=628；C003251 raw=尼古拉二世 foreign=Hnkonan II conf=0.85 page=668；C000452 raw=巴尔本 foreign=Barbon,Nicholas conf=0.85 page=76
+- 400. 托马斯·杰斐逊 / Thomas Jefferson：C003680 raw=杰弗进 foreign=Jefferson, Thomas conf=0.35 page=385
+- 401. 安德鲁·杰克逊 / Andrew Jackson：C003619 raw=杰克进 foreign=Jackson,Andrew conf=0.35 page=386
+- 440. 西蒙·玻利瓦尔 / Simón Bolívar：C000897 raw=玻利瓦尔-伊-庞特 foreign=Bolivar y Ponte, Simon conf=0.35 page=141
+- 441. 何塞·马蒂 / José Martí：C006027 raw=赖哈德 foreign=Reichard, Joseph Martin conf=0.35 page=494
+- 453. J·P·摩根 / J. P. Morgan：C011308 raw=摩根 foreign=Morgan conf=0.55 page=607；C001532 raw=科贝特 foreign=Cobbett, John Morgan conf=0.35 page=428；C001826 raw=德•摩尔根 foreign=De Morgan,John conf=0.85 page=210；C005189 raw=摩尔根 foreign=Morgan, Edwin Denison conf=0.35 page=641
+- 458. 弗里德里希·克虏伯 / Friedrich Krupp：C004177 raw=克房伯 foreign=Krupp, Friedrich Alfred conf=0.85 page=451
+- 473. 马云 / Jack Ma：C003616 raw=杰克逊 foreign=Jackson, Charles Thomas conf=0.85 page=386；C003617 raw=杰克逊 foreign=Jackson, Claiborne Fox conf=0.35 page=386；C003619 raw=杰克进 foreign=Jackson,Andrew conf=0.35 page=386
+- 474. 马化腾 / Pony Ma：C012675 raw=洛维奇 foreign=Apruponyno, Ileprkn conf=0.55 page=94
+- 481. 李嘉诚 / Li Ka-shing：C007410 raw=华盛顿 foreign=Washington, George conf=0.85 page=359；C011226 raw=拉欣顿 foreign=Lushington, Charles Manners conf=0.35 page=486
+- 514. 詹姆斯·沃森 / James Watson：C007419 raw=韦伯 foreign=Webb, James Watson conf=0.35 page=849
+- 548. 李飞飞 / Fei-Fei Li：C005707 raw=普菲斯特尔 foreign=Pfeil conf=0.35 page=706；C007615 raw=弗兰格尔 foreign=Wrangel, Friedrich Feinrich Ernst conf=0.85 page=274；C012534 raw=法伊贝耳 foreign=Feibel,Heinrich conf=0.35 page=246
+- 554. 尤斯图斯·冯·李比希 / Justus von Liebig：C004465 raw=李比希 foreign=Liebig, Justus conf=0.35 page=516
+- 556. 鲁道夫·菲尔绍 / Rudolf Virchow：C007315 raw=嫩耳和 foreign=Virchow,Rudolf conf=0.35 page=839
+
+## 同名不同人风险列表
+
+- 1. 卡尔·马克思 / Karl Marx：C004814 马克思 / Marx, Emilie / 1822-1888；C004815 马克思 / Marx, Francis Joseph Peter / 1816-1876；C004816 马克思 / Marx, Franziska / 1851-1852；C004817 马克思 / Marx, Heinrich / 1777-1838；C004818 马克思 / Marx, Heinrich Guido / 1849-1850
+- 2. 弗里德里希·恩格斯 / Friedrich Engels：C002164 恩格斯 / Elise / 1797-1873；C002203 恩格斯 / Engels, Anna / 1825-1853；C002204 恩格斯 / Engels, August / 1797-1874；C002209 恩格斯 / Engels, Elsbeth / 生于1874年；C002212 恩格斯 / Engels, Emma / 生于1834年
+- 3. 弗拉基米尔·列宁 / Vladimir Lenin：C003715 列宁 / Jle / 1872-1933；C008610 列宁 / BoCnOMHIaHHA O B.M. JeanHe / 
+- 6. 格奥尔格·威廉·弗里德里希·黑格尔 / Georg Wilhelm Friedrich Hegel：C003087 黑格尔 / Hegel,Georg Wilhelm Fried- rich / 1770-1831；C015710 黑格尔 / Hegel, Georg Wilhelm Fried / ；C015711 黑格尔 / Hertz.H. R / 
+- 7. 路德维希·费尔巴哈 / Ludwig Feuerbach：C002413 费尔巴哈 / Feuerbach, Ludwig / 1804-1872；C014647 费尔巴哈 / Firks Feuerbacher / ；C020515 费尔巴哈 /  / ；C010516 希•费尔巴哈 / Ludwig Feuer- bach / ；C010972 德维希•费尔巴哈 / Ludwig Feuerbach / 
+- 9. 斐迪南·拉萨尔 / Ferdinand Lassalle：C003428 拉萨尔 / Iassalle, Ferdinand / 1825-1864；C004331 拉萨尔 / Lassal,Heimann / 死于1862年；C011260 拉萨尔 / Lassalle, Ferdi / ；C018258 拉萨尔 /  / 
+- 10. 欧根·杜林 / Eugen Dühring：C001917 杜林 / Dihring, Eugen Karl / 1833-1921；C001918 杜林 / Diihring, Fugen Karl / 1833-1921
+- 11. 卡尔·考茨基 / Karl Kautsky：C003913 考茨基 / Kaulsky, Felix / 生于1891年；C003916 考茨基 / Kautsky, Fritz / 生于1857年；C003917 考茨基 / Kautsky, Hans / 生于1864年；C003918 考茨基 / Kautsky, Johann / 死于1896年；C003919 考茨基 / Kautsky, Karl / 1854-1938
+- 12. 爱德华·伯恩施坦 / Eduard Bernstein：C000677 伯恩施坦 / Bernstein, Aaron / 1812-1884；C000678 伯恩施坦 / Bernstein, Caroline / 1855-1884；C000679 伯恩施坦 / Bernstein, Jakob / 死于1884年；C008217 伯恩施坦 / Bernstein, Edu / ；C008218 伯恩施坦 / Besser Bernstorff / 
+- 16. 米哈伊尔·巴枯宁 / Mikhail Bakunin：C000264 巴枯宁 / ApoBny / 1814-1876；C000266 巴枯宁 / Aponnu / 1823-1882；C002071 巴枯宁 / Eaky- , HUH,A nekcet Hnbnq / 生于1874；C002081 巴枯宁 / Eaxynun,Mnxann A neKCaHAPO- Bn / 1814-1876；C010299 巴枯宁 / APOBY / 
+- 17. 罗伯特·欧文 / Robert Owen：C003591 欧文 / Irving,David , Daniel / 1854-1924；C005527 欧文 / Owen, Richard / 1804-1892；C005528 欧文 / Owen, Robert / 1771-1858；C005529 欧文 / Owen,W.D / 1849-1854；C012348 欧文 / Pal Owens / 
+- 18. 夏尔·傅立叶 / Charles Fourier：C002502 傅立叶 / Fourier, Charles / 1772-1837；C002503 傅立叶 / Fourier, Charles / 577-579；C002504 傅立叶 / Fourier, Jean-Baptiste.Joseph / 1768-1830；C016188 傅立叶 /  / 
+- 19. 昂利·德·圣西门 / Henri de Saint-Simon：C006320 圣西门 / Saint-Simon,Henri / 582-602；C009439 圣西门 / Saint-Si / ；C009440 圣西门 / Saisset / ；C009441 圣西门 / Stauffacher / ；C004494 兰盖 / Linguet, Simon-Nicolas-Henri / 1736-1794
+- 21. 威廉·配第 / William Petty：C005698 配第 / Petty,William / 1623-1687；C014951 配第 / Philipp Petzler / ；C014952 配第 / Retty, William / 
+- 22. 弗朗索瓦·魁奈 / François Quesnay：C005943 魁奈 / Quesnay, Franqois / 1694-1774；C005944 魁奈 / Quesnay,Frangois / 1694-1774；C015570 魁奈 / Remy, L. , Quessel, L. , Renan, F. J. , Renaudel, P. , R Renner, K. , Raab, F. , Renoult, D / 
+- 23. 亚当·斯密 / Adam Smith：C006648 斯密 / Smee, Alfred / 1818-1877；C011423 斯密 / Smith,Adam / ；C006651 新密 / Smith, Adam / 1723-1790
+- 24. 大卫·李嘉图 / David Ricardo：C006091 李嘉图 / Ricardo, David / 1772-1823；C006092 李嘉图 / Ricardo, David Wilhelm / 1826-1900；C018675 李嘉图 /  / 
+- 25. 托马斯·马尔萨斯 / Thomas Malthus：C004703 马尔萨斯 / Mal- thus, Thomas Robert / 1920-1921；C004720 马尔萨斯 / Malthus, Thomas Robert / 1766-1834；C015478 马尔萨斯 / Maltman / 
+- 26. 让-巴蒂斯特·萨伊 / Jean-Baptiste Say：C006373 萨伊 / Say, Jean- Baptiste / 1767-1832；C006374 萨伊 / Say, Jean-Baptiste-LEon / 1826-1896；C006375 萨伊 / Say,Horace / 1794-1860；C006376 萨伊 / Say,Jean-Baptiste / 1767-1832
+- 27. 西斯蒙第 / Jean Charles Léonard de Sismondi：C014350 西斯蒙第 / Sobrier Skaldin / ；C020290 西斯蒙第 /  / ；C014358 西蒙•德 / Sismondi, Jean Char / 
+- 30. 弗雷德里克·巴师夏 / Frédéric Bastiat：C000498 巴师夏 / Bastiat, Frederic / 114-115；C010287 巴师夏 / Bastiat, Fre / 
+- 31. 亨利·查尔斯·凯里 / Henry Charles Carey：C001261 凯里 / Carey,Henry Charles / 1793-1879；C008581 凯里 / Carey, Martin Henley / ；C008582 凯里 / Caria / 
+- 33. 约翰·洛克 / John Locke：C004525 洛克 / Loch, James / 1780-1855；C004528 洛克 / Locke, John / 1632-1629；C004529 洛克 / Locke, John / 1632-1704
+- 34. 托马斯·霍布斯 / Thomas Hobbes：C003258 霍布斯 / Hobbes,Thomas / 1588-1679；C015312 霍布斯 / Hobhouse / 
+- 38. 卡尔·门格尔 / Carl Menger：C004945 门格尔 / Menger,Anton / 1841-1906；C004946 门格尔 / Menger,Carl / 1840-1921；C015030 门格尔 / Menger, Anton / ；C015031 门格尔 / Menke / 
+- 47. 加里·贝克尔 / Gary Becker：C000563 贝克尔 / Becker, August / 1848-1849；C000564 贝克尔 / Becker, Elisabeth / 死于1884年；C000565 贝克尔 / Becker, Felix / 1830-1831；C000566 贝克尔 / Becker, Johann Philipp / 1809-1886；C000567 贝克尔 / Becker, Nicolaus / 1809-1845
+- 48. 詹姆斯·布坎南 / James Buchanan：C001100 布坎南 / Buchanan, George William / 1854-1924；C001101 布坎南 / Buchanan,Andrew / 1807-1882；C001102 布坎南 / Buchanan,David / 1779-1848；C001103 布坎南 / Buchanan,James / 1791-1868；C010354 布坎南 / Bühring Bucher / 
+- 51. 查尔斯·达尔文 / Charles Darwin：C001795 达尔文 / Darwin, - Charles Robert / 1809-1882；C001796 达尔文 / Darwin, Charles Robert / 1809-1882；C014826 达尔文 / Dasent / 
+- 52. 艾萨克·牛顿 / Isaac Newton：C005530 牛顿 / Oxford / 1642-1727；C012849 牛顿 / Newton / ；C012850 牛顿 / Newton, Isaac / ；C012851 牛顿 / Newton, William / ；C012852 牛顿 / Ney Niccolo Nicholas / 
+- 53. 弗朗西斯·培根 / Francis Bacon：C009575 培根 / Bacon / ；C009576 培根 / Bacon,Francis / ；C009577 培根 / Bacon,Roger / 
+- 55. 巴鲁赫·斯宾诺莎 / Baruch Spinoza：C006712 斯宾诺莎 / Spinoza,Baruch / 1632-1677；C011422 斯宾诺莎 / Stangier Splingard / 
+- 56. 伊曼努尔·康德 / Immanuel Kant：C003863 康德 / Kant,Immanuel / 1724-1804；C010674 康德 / Kant,Immanucl / 
+- 60. 让-雅克·卢梭 / Jean-Jacques Rousseau：C009107 卢梭 / Rousseau, Jean / ；C009103 卢校 / Rousseau, Jean-Jacques / 
+- 61. 伏尔泰 / Voltaire：C007344 伏尔泰 / Voltaire, Franqois-Marie / 1694-1778；C008169 伏尔泰 / Voltaire / ；C012474 沃尔涅 / Volta Voltaire Von Von der Mark / ；C012863 特华伦 / Voltaire Weydemeyer, J. , Vries, H, de , Wibaut Wielopolski W Wieser, F. , Wagner, A. H. G. , Wigand, K / 
+- 62. 丹尼斯·狄德罗 / Denis Diderot：C001902 狄德罗 / Diderot, Denis / 1713-1784；C012910 狄德罗 / Diderot, Denis / ；C012911 狄德罗 / Didier / 
+- 63. 马克西米连·罗伯斯比尔 / Maximilien Robespierre：C006165 罗伯斯比尔 / Robespierre, Maximilien / 1758-1794；C006166 罗伯斯比尔 / Robespierre, Maximilien Marie Isidore / 1890-1896；C006167 罗伯斯比尔 / Robespierre,Augustin / 1763-1794；C019845 罗伯斯比尔 /  / 
+- 64. 乔治·丹东 / Georges Danton：C001789 丹东 / Danton, -O / 1759-1794；C001790 开东 / Danton, Georges-Jacques / 1759-1794
+- 65. 拿破仑·波拿巴 / Napoleon Bonaparte：C018267 拿破仑 /  / ；C000902 长兄 / Bonaparte, Joseph- Charles-Paul, Prince Napoleon / 1806-1808；C005305 拿破仑第三 / Napoleon IIICBonaparte, Louis, Louis-Napoléon / 1852-1870；C005306 拿破仑第三 / Napoleon IIl, Louis Bonaparte / 1808-1873；C005307 拿破合第一 / Napoleon Napoleon Bonaparte / 1769-1821
+- 66. 路易·波拿巴 / Louis Bonaparte：C000903 波拿巴 / Bonaparte, Louis / 1778-1846；C000906 波拿巴 / Bonaparte,Eugene-Louis-Jean- Joseph / 1856-1879；C005305 拿破仑第三 / Napoleon IIICBonaparte, Louis, Louis-Napoléon / 1852-1870；C005306 拿破仑第三 / Napoleon IIl, Louis Bonaparte / 1808-1873；C014771 路易十八 / Löwe Louis Bonaparte Lowenberg Lowendal Louis Capet / 
+- 67. 奥托·冯·俾斯麦 / Otto von Bismarck：C000794 俾斯麦 / Bismarck, Herhert / 1881-1889；C000795 俾斯麦 / Bismarck, Otto / 1815-1898；C008303 俾斯麦 / Bismarck,Otto / 
+- 68. 亚伯拉罕·林肯 / Abraham Lincoln：C004487 林肯 / Lincoln, J / 607-610；C004495 林肯 / Linkenbach / 1809-1865；C012015 林肯 / Lincoln, Abraham / ；C012016 林肯 / List Lind Lister Lindau / 
+- 69. 路易·奥古斯特·布朗基 / Louis Auguste Blanqui：C000824 布朗基 / Blanqui, Jérôme-Adolphe / 1798-1854；C000825 布朗基 / Blanqui, Louis Auguste / 1805-1881；C000826 布朗基 / Blanqui, Louis-Auguste / 1805-1881；C010399 布朗基 / Bloomfield Blaschko / 
+- 71. 埃蒂安·卡贝 / Étienne Cabet：C001179 卡贝 / Cabet, Etienne / 1788-1856；C003830 卡贝 / Kabet, ftienne / 1788-1856；C009080 卡贝 / Cabot / 
+- 72. 路易·勃朗 / Louis Blanc：C000814 勃朗 / Blanc, Louis / 1811-1882；C000815 勃朗 / Blanc,Louis / 811-1882；C000816 布朗施奈 / Blanchenay,Louis / 1800-1881
+- 75. 克拉拉·蔡特金 / Clara Zetkin：C003449 蔡特金 / IerKIH,OcuI / 1852-1889；C007736 蔡特金 / Zetkin, Clara / 1857-1933；C007737 蔡特金 / Zetkin,Clara / 1857-1933；C014322 蔡特金 / ZeuB Zevy Zichy Zichlinsky / 
+- 76. 奥古斯特·倍倍尔 / August Bebel：C000557 倍倍尔 / Bebel, August ker, Karl / 1801-1859；C000558 倍倍尔 / Bebel, Julie / 1843-1910；C000590 倍倍尔 / Behel, August / 1840-1913；C016184 倍倍尔 /  / 
+- 77. 弗兰茨·梅林 / Franz Mehring：C004920 梅林 / Mehring,Franz / 1846-1919；C012288 梅林 / Mehring, Franz / ；C012289 梅林 / Memnon Meiners / 
+- 86. 孟德斯鸠 / Charles de Montesquieu：C005154 孟德斯鸠 / Montesquieu, Charles / 1689-1755；C005155 孟德斯鸠 / Montesquieu, Charles Louis / 1689-1755；C017373 孟德斯鸠 /  / 
+- 88. 马克斯·韦伯 / Max Weber：C007271 韦伯 / Veber,Adrien / 1861-1932；C007419 韦伯 / Webb, James Watson / 1802-1884；C007422 韦伯 / Weber, Carl Maria / 1786-1826；C007425 韦伯 / Weber, Wilhelm Eduard / 1804-1891；C013678 维贝尔 / Weber, Max / 
+- 90. 维尔纳·桑巴特 / Werner Sombart：C006671 桑巴特 / Sombart, Werner / 1863-1941；C012242 桑巴特 / Sombart, Werner / ；C012243 桑巴特 / Souchay Somers / 
+- 93. 赫伯特·斯宾塞 / Herbert Spencer：C006706 斯宾塞 / Spencer, John Poyntz / 1835-1910；C006707 斯宾塞 / Spencer,Herbert / 1820-1903；C011419 斯宾塞 / Spencer, Edmund / ；C011420 斯宾塞 / Stainsby Speyer / ；C021933 斯宾塞 /  / 1910-1915
+- 94. 奥古斯特·孔德 / Auguste Comte：C001574 孔德 / Comte, Charles / 1782-1837；C001575 孔德 / Comte,Auguste / 1798-1857；C009998 孔德 / Comte,August / ；C000348 莫尔尼伯爵 / Auguste-Louis-Joseph, comte de / 1811-1865；C004229 拉费隆奈伯爵 / La Ferronnays, Auguste Pierre-Marie Ferron, comte de / 1777-1842
+- 95. 欧内斯特·曼德尔 / Ernest Mandel：C011828 曼德尔 / Mandl, Heinrich / ；C011829 曼德尔 / Marat Manetho / 
+- 119. 约翰·格奥尔格·埃卡留斯 / Johann Georg Eccarius：C002111 埃卡留斯 / Eccarius, Johann Georg / 1818-1889；C009491 埃卡留斯 / Eccarius, Johann Friedrich / 
+- 134. 茹尔·盖得 / Jules Guesde：C002875 盖得 / Guesde, Jules / 1845-1922；C002876 盖得 / Guesde, Jules exoB / 生于1879年
+- 136. 保尔·布鲁斯 / Paul Brousse：C001068 布鲁斯 / Brousse, Paul / 1844-1912；C010511 布鲁斯 / Brou- , sse, Paul Louis Marie / 
+- 143. 卡尔·伦纳 / Karl Renner：C001030 布伦纳 / Brenner, Johann Karl / 1814-1883；C008194 伦纳 / Renner, Karl / 
+- 211. 爱德华·帕尔默·汤普森 / E. P. Thompson：C007001 汤普逊 / Thompson, Jacob / 1810-1885；C007002 汤普逊 / Thompson, John / 1802-1891；C007003 汤普逊 / Thompson, Thomas Perronet / 1783-1869；C007004 汤普逊 / Thompson, William / 557-565；C007005 汤普逊 / Thompson,George / 1804-1878
+- 248. 朱德 / Zhu De：C005438 奥伯尼茨 / Obernitz,Hugo / 1819-1901；C012651 泽耳姆尼茨 / Selmnitz, Hugo von / ；C013903 胡登 / Ignatz Hutton / ；C014753 赫顿 / Ihász Huxley / 
+- 260. 贺龙 / He Long：C001212 卡龙林-费诺菜特 / Calonge y Fenollet, Eusebio / 1814-1874；C002021 杜隆 / Dulong,Frangois-Charles / 1792-1834；C002773 哥特弗利德 / Gottfried von Bouillon, Godefroy de Bouillon / 1089-1100；C004224 朗梅德 / L.ongmaid, John / 1864-1865；C004537 兰西尔 / Longos / 1802-1873
+
+## 下一步建议作者优先人工写 stance_summary 的前 50 人
+
+- 1. 卡尔·马克思 / Karl Marx：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 2. 弗里德里希·恩格斯 / Friedrich Engels：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 3. 弗拉基米尔·列宁 / Vladimir Lenin：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 4. 约瑟夫·斯大林 / Joseph Stalin：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 5. 毛泽东 / Mao Zedong：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 41. 约翰·梅纳德·凯恩斯 / John Maynard Keynes：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 42. 弗里德里希·哈耶克 / Friedrich Hayek：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 43. 米尔顿·弗里德曼 / Milton Friedman：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 524. 艾伦·图灵 / Alan Turing：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 525. 约翰·冯·诺依曼 / John von Neumann：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 526. 克劳德·香农 / Claude Shannon：核心人物、索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 23. 亚当·斯密 / Adam Smith：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 24. 大卫·李嘉图 / David Ricardo：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 25. 托马斯·马尔萨斯 / Thomas Malthus：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 26. 让-巴蒂斯特·萨伊 / Jean-Baptiste Say：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 51. 查尔斯·达尔文 / Charles Darwin：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 503. 阿尔伯特·爱因斯坦 / Albert Einstein：核心人物、作者立场评价待写、存在 AI 立场草稿需甄别
+- 8. 皮埃尔-约瑟夫·蒲鲁东 / Pierre-Joseph Proudhon：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 9. 斐迪南·拉萨尔 / Ferdinand Lassalle：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 10. 欧根·杜林 / Eugen Dühring：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 13. 罗莎·卢森堡 / Rosa Luxemburg：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 14. 列夫·托洛茨基 / Leon Trotsky：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 15. 尼古拉·布哈林 / Nikolai Bukharin：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 16. 米哈伊尔·巴枯宁 / Mikhail Bakunin：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 18. 夏尔·傅立叶 / Charles Fourier：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 19. 昂利·德·圣西门 / Henri de Saint-Simon：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 22. 弗朗索瓦·魁奈 / François Quesnay：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 27. 西斯蒙第 / Jean Charles Léonard de Sismondi：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 28. 约翰·斯图亚特·密尔 / John Stuart Mill：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 32. 詹姆斯·密尔 / James Mill：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 36. 阿尔弗雷德·马歇尔 / Alfred Marshall：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 39. 莱昂·瓦尔拉斯 / Léon Walras：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 40. 欧根·冯·庞巴维克 / Eugen von Böhm-Bawerk：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 44. 保罗·萨缪尔森 / Paul Samuelson：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 45. 罗纳德·科斯 / Ronald Coase：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 46. 道格拉斯·诺斯 / Douglass North：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 47. 加里·贝克尔 / Gary Becker：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 48. 詹姆斯·布坎南 / James Buchanan：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 49. 托马斯·皮凯蒂 / Thomas Piketty：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 50. 达龙·阿西莫格鲁 / Daron Acemoglu：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 52. 艾萨克·牛顿 / Isaac Newton：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 53. 弗朗西斯·培根 / Francis Bacon：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 55. 巴鲁赫·斯宾诺莎 / Baruch Spinoza：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 57. 亚里士多德 / Aristotle：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 58. 伊壁鸠鲁 / Epicurus：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 59. 德谟克利特 / Democritus：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 60. 让-雅克·卢梭 / Jean-Jacques Rousseau：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 65. 拿破仑·波拿巴 / Napoleon Bonaparte：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 66. 路易·波拿巴 / Louis Bonaparte：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+- 68. 亚伯拉罕·林肯 / Abraham Lincoln：索引简介待补、作者立场评价待写、存在 AI 立场草稿需甄别
+
+## 工作流说明
+
+- summary 现在只显示 index_summary；未匹配索引简介时显示“索引简介待补”。
+- 旧 summary 已迁移到 ai_draft_summary，旧 stance_summary 已迁移到 ai_draft_stance_summary。
+- stance_summary 当前不再承载正式立场评价，已统一清空；正式人工评价写入 author_stance_summary。
+- 低置信 OCR 候选没有写入正式库；需要作者后续对照 PDF 或原始索引人工确认。

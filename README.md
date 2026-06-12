@@ -22,6 +22,12 @@ npm install
 npm run dev
 ```
 
+The frontend reads the backend URL from `apps/web/.env`:
+
+```bash
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
 ## Run Backend
 
 ```bash
@@ -39,6 +45,76 @@ AI_PROVIDER=disabled
 ```
 
 Hosted or external AI providers should be called from the backend, not directly from the browser, so API keys are not exposed.
+
+## Local Development Commands
+
+You can start both development servers with:
+
+```bash
+./scripts/dev.sh
+```
+
+The script starts:
+
+- Backend: `http://127.0.0.1:8000`
+- Frontend: `http://127.0.0.1:5173`
+
+If setup is incomplete, it prints the manual commands to run.
+
+Manual backend:
+
+```bash
+cd backend
+source .venv/bin/activate
+uvicorn main:app --reload
+```
+
+Manual frontend:
+
+```bash
+cd apps/web
+npm run dev
+```
+
+## Build Commands
+
+Build the frontend and check backend imports:
+
+```bash
+./scripts/build.sh
+```
+
+Manual frontend build:
+
+```bash
+cd apps/web
+npm install
+npm run build
+```
+
+Manual backend import check:
+
+```bash
+cd backend
+source .venv/bin/activate
+PYTHONPATH=. python -c "import main; print(main.app.title)"
+```
+
+## Local Checks
+
+Run:
+
+```bash
+./scripts/check.sh
+```
+
+This checks:
+
+- Node and npm versions.
+- Python version.
+- Backend health endpoint if the backend is already running.
+- Whether `apps/web/dist/index.html` exists.
+- Required environment example files.
 
 ## AI Provider Switching
 
@@ -89,3 +165,21 @@ The `content/` folder is the Git-backed knowledge base. It starts with:
 - `content/works/archive-of-sparks/`: guided learning narrative content for Archive of Sparks.
 
 Markdown pages should stay small at first: title, short description, placeholder sections, TODO markers, and links to related pages.
+
+## Basic Troubleshooting
+
+- Frontend cannot reach backend:
+  - Confirm backend is running at `http://127.0.0.1:8000`.
+  - Check `apps/web/.env` has `VITE_API_BASE_URL=http://127.0.0.1:8000`.
+  - Restart the Vite dev server after changing `.env`.
+- Backend import or startup fails:
+  - Recreate the virtual environment if needed.
+  - Run `pip install -r requirements.txt` inside `backend/.venv`.
+  - Start from the `backend/` directory with `uvicorn main:app --reload`.
+- AI features show disabled or unavailable messages:
+  - This is expected when AI is disabled or no provider key is configured.
+  - Check `ENABLE_AI`, `AI_PROVIDER`, and provider-specific environment variables.
+- Frontend build folder is missing:
+  - Run `cd apps/web && npm run build`.
+- Port already in use:
+  - Stop the existing backend or frontend process, or run the service manually on another port.

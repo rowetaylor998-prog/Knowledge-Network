@@ -22,7 +22,7 @@ __pycache__/
 # Build output and generated caches
 dist/
 .vitepress/dist
-.vitepress/cache
+.vitepress/cachexq
 .vitepress/.temp
 apps/web/dist
 *.tsbuildinfo

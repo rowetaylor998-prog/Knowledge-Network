@@ -1,20 +1,64 @@
 import { useEffect, useMemo, useState } from 'react'
-import { apiUrl } from '../api'
+import { improveAnnotation as improveAnnotationRequest } from '../api'
 
 const STORAGE_KEY = 'bkfi_annotations_v1'
 
-function readAnnotations() {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY)
-    const parsed = raw ? JSON.parse(raw) : []
-    return Array.isArray(parsed) ? parsed : []
-  } catch {
-    return []
+function normalizeAnnotation(annotation) {
+  const createdAt = annotation.createdAt || new Date().toISOString()
+
+  return {
+    ...annotation,
+    id: annotation.id || createId(),
+    pagePath: annotation.pagePath || annotation.pageId || '',
+    selectedText: annotation.selectedText || annotation.targetText || '',
+    annotationText: annotation.annotationText || annotation.text || '',
+    createdAt,
+    updatedAt: annotation.updatedAt || createdAt
   }
 }
 
-function writeAnnotations(annotations) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(annotations))
+function readAnnotationStore() {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    const parsed = raw ? JSON.parse(raw) : {}
+
+    if (Array.isArray(parsed)) {
+      return parsed.reduce((store, annotation) => {
+        const normalized = normalizeAnnotation(annotation)
+        if (!normalized.pagePath) {
+          return store
+        }
+
+        store[normalized.pagePath] = store[normalized.pagePath] || []
+        store[normalized.pagePath].push(normalized)
+        return store
+      }, {})
+    }
+
+    if (!parsed || typeof parsed !== 'object') {
+      return {}
+    }
+
+    return Object.entries(parsed).reduce((store, [pagePath, annotations]) => {
+      store[pagePath] = Array.isArray(annotations)
+        ? annotations.map((annotation) => normalizeAnnotation({ ...annotation, pagePath }))
+        : []
+      return store
+    }, {})
+  } catch {
+    return {}
+  }
+}
+
+function readAnnotations(pagePath) {
+  const store = readAnnotationStore()
+  return store[pagePath] || []
+}
+
+function writeAnnotations(pagePath, annotations) {
+  const store = readAnnotationStore()
+  store[pagePath] = annotations
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(store))
 }
 
 function createId() {
@@ -32,28 +76,39 @@ function formatTime(value) {
 }
 
 export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
+  const pagePath = pageId
   const [isOpen, setIsOpen] = useState(false)
-  const [text, setText] = useState('')
+  const [annotationText, setAnnotationText] = useState('')
+  const [selectedText, setSelectedText] = useState('')
   const [annotations, setAnnotations] = useState([])
+  const [editingId, setEditingId] = useState('')
+  const [editingText, setEditingText] = useState('')
+  const [editingSelectedText, setEditingSelectedText] = useState('')
   const [improvements, setImprovements] = useState({})
   const [improvingId, setImprovingId] = useState('')
 
   useEffect(() => {
-    setAnnotations(readAnnotations())
-  }, [])
+    setAnnotations(readAnnotations(pagePath))
+  }, [pagePath])
 
   const visibleAnnotations = useMemo(
     () =>
       annotations
-        .filter((annotation) => annotation.pageId === pageId)
         .filter((annotation) => (targetId ? annotation.targetId === targetId : !annotation.targetId))
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-    [annotations, pageId, targetId]
+    [annotations, targetId]
   )
+
+  function captureSelectedText() {
+    const selection = window.getSelection?.().toString().trim()
+    if (selection) {
+      setSelectedText(selection)
+    }
+  }
 
   function saveAnnotation(event) {
     event.preventDefault()
-    const trimmed = text.trim()
+    const trimmed = annotationText.trim()
     if (!trimmed) {
       return
     }
@@ -61,29 +116,69 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
     const now = new Date().toISOString()
     const annotation = {
       id: createId(),
-      pageId,
+      pagePath,
       targetId: targetId || undefined,
-      targetText: targetText || undefined,
-      text: trimmed,
-      createdAt: now
+      selectedText: selectedText.trim() || targetText || '',
+      annotationText: trimmed,
+      createdAt: now,
+      updatedAt: now
     }
 
     const nextAnnotations = [...annotations, annotation]
     setAnnotations(nextAnnotations)
-    writeAnnotations(nextAnnotations)
-    setText('')
+    writeAnnotations(pagePath, nextAnnotations)
+    setAnnotationText('')
+    setSelectedText('')
     setIsOpen(true)
+  }
+
+  function startEditing(annotation) {
+    setEditingId(annotation.id)
+    setEditingText(annotation.annotationText)
+    setEditingSelectedText(annotation.selectedText || '')
+  }
+
+  function cancelEditing() {
+    setEditingId('')
+    setEditingText('')
+    setEditingSelectedText('')
+  }
+
+  function saveEditedAnnotation(event, annotation) {
+    event.preventDefault()
+    const trimmed = editingText.trim()
+    if (!trimmed) {
+      return
+    }
+
+    const now = new Date().toISOString()
+    const nextAnnotations = annotations.map((item) =>
+      item.id === annotation.id
+        ? {
+            ...item,
+            selectedText: editingSelectedText.trim(),
+            annotationText: trimmed,
+            updatedAt: now
+          }
+        : item
+    )
+    setAnnotations(nextAnnotations)
+    writeAnnotations(pagePath, nextAnnotations)
+    cancelEditing()
   }
 
   function deleteAnnotation(id) {
     const nextAnnotations = annotations.filter((annotation) => annotation.id !== id)
     setAnnotations(nextAnnotations)
-    writeAnnotations(nextAnnotations)
+    writeAnnotations(pagePath, nextAnnotations)
     setImprovements((current) => {
       const next = { ...current }
       delete next[id]
       return next
     })
+    if (editingId === id) {
+      cancelEditing()
+    }
   }
 
   async function improveAnnotation(annotation) {
@@ -97,21 +192,10 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
     }))
 
     try {
-      const response = await fetch(apiUrl('/api/tutor/improve-annotation'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          source_text: annotation.targetText || targetText || document.title || pageId,
-          annotation: annotation.text
-        })
+      const data = await improveAnnotationRequest({
+        source_text: annotation.selectedText || targetText || document.title || pagePath,
+        annotation: annotation.annotationText
       })
-
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.detail || `Backend returned ${response.status}`)
-      }
 
       setImprovements((current) => ({
         ...current,
@@ -137,10 +221,10 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
   function replaceAnnotation(annotation, improvedText) {
     const now = new Date().toISOString()
     const nextAnnotations = annotations.map((item) =>
-      item.id === annotation.id ? { ...item, text: improvedText, updatedAt: now } : item
+      item.id === annotation.id ? { ...item, annotationText: improvedText, updatedAt: now } : item
     )
     setAnnotations(nextAnnotations)
-    writeAnnotations(nextAnnotations)
+    writeAnnotations(pagePath, nextAnnotations)
     setImprovements((current) => {
       const next = { ...current }
       delete next[annotation.id]
@@ -171,11 +255,24 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
           ) : null}
 
           <form className="annotation-form" onSubmit={saveAnnotation}>
-            <label htmlFor={`annotation-${pageId}-${targetId || 'page'}`}>Write annotation</label>
+            <label htmlFor={`annotation-selected-${pagePath}-${targetId || 'page'}`}>
+              Selected text or page context
+            </label>
             <textarea
-              id={`annotation-${pageId}-${targetId || 'page'}`}
-              value={text}
-              onChange={(event) => setText(event.target.value)}
+              id={`annotation-selected-${pagePath}-${targetId || 'page'}`}
+              value={selectedText}
+              onChange={(event) => setSelectedText(event.target.value)}
+              placeholder="Optional: paste selected text here, or select text on the page and use the button below."
+              rows={2}
+            />
+            <button type="button" className="annotation-secondary-button" onClick={captureSelectedText}>
+              Use current selection
+            </button>
+            <label htmlFor={`annotation-${pagePath}-${targetId || 'page'}`}>Write annotation</label>
+            <textarea
+              id={`annotation-${pagePath}-${targetId || 'page'}`}
+              value={annotationText}
+              onChange={(event) => setAnnotationText(event.target.value)}
               placeholder="Write your note, question, insight, or disagreement..."
               rows={4}
             />
@@ -191,14 +288,48 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
                   {annotation.updatedAt ? (
                     <time dateTime={annotation.updatedAt}>Updated {formatTime(annotation.updatedAt)}</time>
                   ) : null}
-                  {annotation.targetText ? <p className="annotation-item-target">{annotation.targetText}</p> : null}
-                  <p>{annotation.text}</p>
+                  {editingId === annotation.id ? (
+                    <form
+                      className="annotation-form annotation-edit-form"
+                      onSubmit={(event) => saveEditedAnnotation(event, annotation)}
+                    >
+                      <label htmlFor={`annotation-edit-selected-${annotation.id}`}>
+                        Selected text or page context
+                      </label>
+                      <textarea
+                        id={`annotation-edit-selected-${annotation.id}`}
+                        value={editingSelectedText}
+                        onChange={(event) => setEditingSelectedText(event.target.value)}
+                        rows={2}
+                      />
+                      <label htmlFor={`annotation-edit-${annotation.id}`}>Annotation</label>
+                      <textarea
+                        id={`annotation-edit-${annotation.id}`}
+                        value={editingText}
+                        onChange={(event) => setEditingText(event.target.value)}
+                        rows={4}
+                      />
+                      <div className="annotation-actions">
+                        <button type="submit">Save changes</button>
+                        <button type="button" className="annotation-secondary-button" onClick={cancelEditing}>
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <>
+                      {annotation.selectedText ? (
+                        <p className="annotation-item-target">{annotation.selectedText}</p>
+                      ) : null}
+                      <p>{annotation.annotationText}</p>
+                    </>
+                  )}
                   {improvements[annotation.id]?.error ? (
                     <p className="annotation-ai-error">{improvements[annotation.id].error}</p>
                   ) : null}
                   {improvements[annotation.id]?.result ? (
                     <section className="annotation-ai-result">
-                      <h4>AI 修改建议</h4>
+                      <h4>AI improvement</h4>
                       <p>
                         <strong>Feedback:</strong> {improvements[annotation.id].result.feedback}
                       </p>
@@ -220,7 +351,7 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
                             )
                           }
                         >
-                          Replace my annotation
+                          Use improved version
                         </button>
                         <button type="button" onClick={() => keepOriginal(annotation.id)}>
                           Keep original
@@ -235,7 +366,10 @@ export function AnnotationPanel({ pageId, targetText = '', targetId = '' }) {
                     onClick={() => improveAnnotation(annotation)}
                     disabled={improvingId === annotation.id}
                   >
-                    {improvingId === annotation.id ? 'Improving...' : 'AI 修改批注'}
+                    {improvingId === annotation.id ? 'Improving...' : 'Improve with AI'}
+                  </button>
+                  <button type="button" onClick={() => startEditing(annotation)}>
+                    Edit
                   </button>
                   <button type="button" onClick={() => deleteAnnotation(annotation.id)}>
                     Delete

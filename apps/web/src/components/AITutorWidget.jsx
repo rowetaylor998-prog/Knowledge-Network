@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import { apiUrl } from '../api'
-
-const TUTOR_ENDPOINT = apiUrl('/api/tutor/ask')
+import { askTutor } from '../api'
 
 export function AITutorWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,28 +24,17 @@ export function AITutorWidget() {
     setAnswer('')
 
     try {
-      const response = await fetch(TUTOR_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          question: trimmedQuestion,
-          context: '',
-          page_title: document.title,
-          provider,
-          model: model.trim() || undefined
-        })
+      const data = await askTutor({
+        question: trimmedQuestion,
+        context: '',
+        page_title: document.title,
+        provider,
+        model: model.trim() || undefined
       })
-
-      if (!response.ok) {
-        throw new Error(`Backend returned ${response.status}`)
-      }
-
-      const data = await response.json()
       setAnswer(data.answer || 'No answer returned.')
     } catch (requestError) {
-      setError('AI Tutor is unavailable. Start the backend or configure VITE_API_BASE_URL and try again.')
+      const message = requestError instanceof Error ? requestError.message : ''
+      setError(message || 'AI Tutor is unavailable. Start the backend or configure VITE_API_BASE_URL and try again.')
     } finally {
       setIsLoading(false)
     }

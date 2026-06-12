@@ -1,0 +1,82 @@
+{
+  "id": "example-scene",
+  "title": "Example Scene",
+  "chapter": "chapter-0-trapped-people",
+  "status": "draft",
+  "description": "A copyable scene format for early Archive of Sparks contributors.",
+  "playableIdentity": {
+    "id": "delivery-worker",
+    "label": "Delivery Worker / Platform Worker",
+    "status": "playable"
+  },
+  "characters": [
+    {
+      "id": "player",
+      "name": "Player",
+      "role": "Playable character"
+    },
+    {
+      "id": "atang",
+      "name": "Atang",
+      "role": "Guide"
+    }
+  ],
+  "setting": {
+    "location": "A city street during a platform delivery shift",
+    "time": "Evening",
+    "mood": "Busy, pressured, and uncertain"
+  },
+  "opening": "Everyone is busy. But few people know why they are busy.",
+  "beats": [
+    {
+      "id": "new-order",
+      "summary": "The platform sends a new order."
+    },
+    {
+      "id": "tight-timer",
+      "summary": "The timer is tight."
+    },
+    {
+      "id": "algorithm-route",
+      "summary": "The route is calculated by an algorithm."
+    },
+    {
+      "id": "measured-time",
+      "summary": "The worker feels that every minute is being measured."
+    }
+  ],
+  "centralQuestion": "Why are contemporary workers managed by algorithms and platforms?",
+  "choices": [
+    {
+      "id": "political-economy-route",
+      "label": "Political Economy Route",
+      "consequence": "Connect the scene to labor, capital, control, risk, and production relations."
+    },
+    {
+      "id": "technology-route",
+      "label": "Technology Route",
+      "consequence": "Connect the scene to routing, ranking, dispatch, timers, and platform algorithms."
+    }
+  ],
+  "knowledgeLinks": [
+    {
+      "title": "Algorithms",
+      "path": "/content/knowledge/computer-science/algorithms"
+    },
+    {
+      "title": "Marxism / Political Economy Introduction",
+      "path": "/content/knowledge/marxism-political-economy/introduction"
+    }
+  ],
+  "atangPromptNotes": [
+    "Atang should help the player connect the scene to knowledge routes.",
+    "Atang should be clear, lively, and concise.",
+    "Atang should not give unsafe real-world confrontation instructions."
+  ],
+  "todos": [
+    "Add scene dialogue.",
+    "Add more route choices.",
+    "Add reflection prompts.",
+    "Connect this scene to a reusable chapter framework."
+  ]
+}

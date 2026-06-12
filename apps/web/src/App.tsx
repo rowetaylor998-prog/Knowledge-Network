@@ -5,6 +5,7 @@ import { MethodsPage } from './pages/MethodsPage'
 import { KnowledgePage } from './pages/KnowledgePage'
 import { WorksPage } from './pages/WorksPage'
 import { ArchiveOfSparks } from './pages/ArchiveOfSparks'
+import { PeoplePage } from './pages/PeoplePage'
 import {
   LegacyKnowledgeTreePage,
   algorithmTreeItems,
@@ -19,6 +20,7 @@ const routes = {
   ),
   '/methods-and-lessons': MethodsPage,
   '/knowledge': KnowledgePage,
+  '/people': PeoplePage,
   '/repositories/computer-technical-systems': () => (
     <LegacyKnowledgeTreePage
       title="Introduction to Modern Computer Science"
@@ -85,10 +87,20 @@ const routes = {
   )
 }
 
-export type RoutePath = keyof typeof routes
+export type StaticRoutePath = keyof typeof routes
+export type ContentRoutePath = `/content/${string}`
+export type RoutePath = StaticRoutePath | ContentRoutePath
 
 function getRoute(pathname: string): RoutePath {
-  return pathname in routes ? (pathname as RoutePath) : '/'
+  if (pathname in routes) {
+    return pathname as StaticRoutePath
+  }
+
+  if (pathname.startsWith('/content/')) {
+    return pathname as ContentRoutePath
+  }
+
+  return '/'
 }
 
 export function App() {
@@ -100,7 +112,13 @@ export function App() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  const Page = useMemo(() => routes[route], [route])
+  const Page = useMemo(() => {
+    if (route.startsWith('/content/') && !(route in routes)) {
+      return () => <MarkdownContentPage contentPath={route} title="Knowledge" />
+    }
+
+    return routes[route as StaticRoutePath]
+  }, [route])
 
   function navigate(nextRoute: RoutePath) {
     window.history.pushState({}, '', nextRoute)

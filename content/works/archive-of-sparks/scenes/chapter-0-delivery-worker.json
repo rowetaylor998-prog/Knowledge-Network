@@ -1,0 +1,135 @@
+{
+  "chapter_id": "archive-of-sparks-chapter-0",
+  "title": "Archive of Sparks: Chapter 0 - Trapped People",
+  "opening_text": "Everyone is busy. But few people know why they are busy.",
+  "identity": {
+    "id": "delivery-worker",
+    "label": "Delivery Worker / Platform Worker",
+    "scene_id": "delivery-worker-scene",
+    "scene_label": "Delivery Worker scene",
+    "scene_title": "A shift governed by the platform",
+    "playable": true
+  },
+  "scene_steps": [
+    "The platform sends a new order.",
+    "The timer is tight.",
+    "The route is calculated by an algorithm.",
+    "The worker feels that every minute is being measured."
+  ],
+  "core_question": "Why are contemporary workers managed by algorithms and platforms?",
+  "route_choices": [
+    {
+      "id": "political-economy",
+      "scene_id": "political-economy-route",
+      "api_route": "political_economy",
+      "label": "Political Economy Route",
+      "explanation": "This route studies algorithmic management as part of the labor process: platforms organize work, measure time, allocate tasks, and shift risk onto workers.",
+      "related_archives": [
+        {
+          "label": "Marxism / political economy introduction",
+          "href": "/content/knowledge/marxism-political-economy/introduction"
+        },
+        {
+          "label": "Political economy introduction",
+          "href": "/content/knowledge/marxism-political-economy/political-economy-introduction"
+        },
+        {
+          "label": "Platform algorithms",
+          "href": "/content/knowledge/computer-science/algorithms"
+        }
+      ]
+    },
+    {
+      "id": "mainstream-economics",
+      "scene_id": "mainstream-economics-route",
+      "api_route": "mainstream_economics",
+      "label": "Mainstream Economics Route",
+      "explanation": "This route examines platforms as market coordinators that match supply and demand, set incentives, reduce transaction costs, and optimize service capacity.",
+      "related_archives": [
+        {
+          "label": "Knowledge platform overview",
+          "href": "/knowledge"
+        },
+        {
+          "label": "Algorithms as market coordination tools",
+          "href": "/content/knowledge/computer-science/algorithms"
+        },
+        {
+          "label": "Mainstream economics placeholder",
+          "href": "/knowledge"
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "scene_id": "technology-route",
+      "api_route": "technology",
+      "label": "Technology Route",
+      "explanation": "This route focuses on ranking, routing, dispatch, timers, metrics, and feedback systems that make platform control appear automatic and neutral.",
+      "related_archives": [
+        {
+          "label": "Algorithms / platform algorithms",
+          "href": "/content/knowledge/computer-science/algorithms"
+        },
+        {
+          "label": "Modern algorithms",
+          "href": "/content/knowledge/computer-science/algorithms/modern-algorithms"
+        },
+        {
+          "label": "Introduction to algorithms",
+          "href": "/content/knowledge/computer-science/algorithms/introduction-to-algorithms"
+        }
+      ]
+    },
+    {
+      "id": "state-institutions",
+      "scene_id": "state-institutions-route",
+      "api_route": "state_institutions",
+      "label": "State and Institutions Route",
+      "explanation": "This route asks how labor law, regulation, contracts, courts, and public institutions shape what platforms can require from workers.",
+      "related_archives": [
+        {
+          "label": "Knowledge platform overview",
+          "href": "/knowledge"
+        },
+        {
+          "label": "Scientific socialism introduction",
+          "href": "/content/knowledge/marxism-political-economy/scientific-socialism-introduction"
+        },
+        {
+          "label": "State and institutions placeholder",
+          "href": "/knowledge"
+        }
+      ]
+    }
+  ],
+  "related_archives": [
+    {
+      "title": "Algorithms / platform algorithms",
+      "description": "Study routing, ranking, optimization, dispatch, and the technical systems behind platform control.",
+      "href": "/content/knowledge/computer-science/algorithms"
+    },
+    {
+      "title": "Marxism / political economy",
+      "description": "Study labor, capital, surplus, control, and how platforms reorganize the labor process.",
+      "href": "/content/knowledge/marxism-political-economy/introduction"
+    },
+    {
+      "title": "Mainstream economics placeholder",
+      "description": "A future route for markets, incentives, matching, transaction costs, and platform business models.",
+      "href": "/knowledge"
+    },
+    {
+      "title": "State and institutions placeholder",
+      "description": "A future route for labor law, contracts, regulation, courts, public policy, and institutional power.",
+      "href": "/knowledge"
+    }
+  ],
+  "atang_context": {
+    "character": "Atang",
+    "base_context": "Archive of Sparks Chapter 0 - Trapped People. Playable identity: Delivery Worker / Platform Worker. Opening: Everyone is busy. But few people know why they are busy.",
+    "role": "Atang helps the player connect the scene to history, economics, technology, institutions, and knowledge routes.",
+    "tone": "Clear, lively, concise, and useful for a learner inside the story.",
+    "safety": "Do not give unsafe real-world confrontation instructions. Encourage lawful, thoughtful, knowledge-based understanding."
+  }
+}

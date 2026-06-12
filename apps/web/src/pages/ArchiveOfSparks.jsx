@@ -1,24 +1,19 @@
-import { useMemo, useState } from 'react'
-import { apiUrl } from '../api'
+import { useEffect, useMemo, useState } from 'react'
+import { characterChat, improveAnnotation } from '../api'
 import { AnnotationPanel } from '../components/AnnotationPanel'
+import deliveryWorkerScene from '../../../../content/works/archive-of-sparks/scenes/chapter-0-delivery-worker.json'
 
-const ARCHIVE_PAGE_ID = 'archive-of-sparks-chapter-0'
+const ARCHIVE_PAGE_ID = deliveryWorkerScene.chapter_id
+const LEARNING_NOTE_STORAGE_KEY = 'bkfi_archive_learning_notes_v1'
 
-const SCENE_IDS = {
-  opening: 'chapter0-opening',
-  deliveryWorker: 'delivery-worker-scene',
-  politicalEconomy: 'political-economy-route',
-  mainstreamEconomics: 'mainstream-economics-route',
-  technology: 'technology-route',
-  stateInstitutions: 'state-institutions-route'
-}
+const playableScenes = [deliveryWorkerScene]
 
 const identities = [
-  {
-    id: 'delivery-worker',
-    label: 'Delivery Worker',
-    playable: true
-  },
+  ...playableScenes.map((scene) => ({
+    id: scene.identity.id,
+    label: scene.identity.label,
+    playable: scene.identity.playable
+  })),
   {
     id: 'factory-worker',
     label: 'Factory Worker',
@@ -31,65 +26,54 @@ const identities = [
   }
 ]
 
-const routes = [
-  {
-    id: 'political-economy',
-    sceneId: SCENE_IDS.politicalEconomy,
-    apiRoute: 'political_economy',
-    label: 'Political Economy Route',
-    explanation:
-      'This route studies algorithmic management as part of the labor process: platforms organize work, measure time, allocate tasks, and shift risk onto workers.',
-    links: [
-      '/content/knowledge/marxism-political-economy/introduction',
-      '/content/knowledge/computer-science/algorithms'
-    ]
-  },
-  {
-    id: 'mainstream-economics',
-    sceneId: SCENE_IDS.mainstreamEconomics,
-    apiRoute: 'mainstream_economics',
-    label: 'Mainstream Economics Route',
-    explanation:
-      'This route examines platforms as market coordinators that match supply and demand, set incentives, reduce transaction costs, and optimize service capacity.',
-    links: [
-      '/knowledge',
-      '/content/knowledge/computer-science/algorithms'
-    ]
-  },
-  {
-    id: 'technology',
-    sceneId: SCENE_IDS.technology,
-    apiRoute: 'technology',
-    label: 'Technology Route',
-    explanation:
-      'This route focuses on ranking, routing, dispatch, timers, metrics, and feedback systems that make platform control appear automatic and neutral.',
-    links: [
-      '/content/knowledge/computer-science/algorithms',
-      '/content/knowledge/marxism-political-economy/introduction'
-    ]
-  },
-  {
-    id: 'state-institutions',
-    sceneId: SCENE_IDS.stateInstitutions,
-    apiRoute: 'state_institutions',
-    label: 'State and Institutions Route',
-    explanation:
-      'This route asks how labor law, regulation, contracts, courts, and public institutions shape what platforms can require from workers.',
-    links: [
-      '/knowledge',
-      '/knowledge'
-    ]
+function sceneRoutes(scene) {
+  return scene.route_choices.map((route) => ({
+    id: route.id,
+    sceneId: route.scene_id,
+    apiRoute: route.api_route,
+    label: route.label,
+    explanation: route.explanation,
+    links: route.related_archives
+  }))
+}
+
+function readLearningNotes() {
+  try {
+    const raw = window.localStorage.getItem(LEARNING_NOTE_STORAGE_KEY)
+    const parsed = raw ? JSON.parse(raw) : {}
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+  } catch {
+    return {}
   }
-]
+}
 
-const narrativeBeats = [
-  'The player receives orders from a platform.',
-  'The timer is tight.',
-  'The route is optimized by an algorithm.',
-  'The worker feels controlled by the system.'
-]
+function readLearningNote(sceneId) {
+  return (
+    readLearningNotes()[sceneId] || {
+      sceneId,
+      noticedProblem: '',
+      routeReflection: '',
+      remainingQuestion: '',
+      improvedNote: '',
+      createdAt: '',
+      updatedAt: ''
+    }
+  )
+}
 
-const deliveryWorkerTargetText = `Delivery Worker scene: ${narrativeBeats.join(' ')}`
+function writeLearningNote(sceneId, note) {
+  const notes = readLearningNotes()
+  notes[sceneId] = note
+  window.localStorage.setItem(LEARNING_NOTE_STORAGE_KEY, JSON.stringify(notes))
+}
+
+function formatLearningNote(note) {
+  return [
+    `What problem did you notice in this scene?\n${note.noticedProblem}`,
+    `Which explanation route did you choose, and why?\n${note.routeReflection}`,
+    `What question do you still have?\n${note.remainingQuestion}`
+  ].join('\n\n')
+}
 
 export function ArchiveOfSparks({ onNavigate }) {
   const [identity, setIdentity] = useState('delivery-worker')
@@ -99,15 +83,51 @@ export function ArchiveOfSparks({ onNavigate }) {
   const [atangArchives, setAtangArchives] = useState([])
   const [atangError, setAtangError] = useState('')
   const [atangLoading, setAtangLoading] = useState(false)
+  const [learningNote, setLearningNote] = useState(() =>
+    readLearningNote(deliveryWorkerScene.identity.scene_id)
+  )
+  const [learningNoteSaved, setLearningNoteSaved] = useState(false)
+  const [learningNoteAi, setLearningNoteAi] = useState({ error: '', result: null })
+  const [learningNoteAiLoading, setLearningNoteAiLoading] = useState(false)
 
   const currentIdentity = useMemo(
     () => identities.find((item) => item.id === identity) ?? identities[0],
     [identity]
   )
 
+  const currentScene = useMemo(
+    () => playableScenes.find((scene) => scene.identity.id === identity) ?? deliveryWorkerScene,
+    [identity]
+  )
+
+  const routes = useMemo(() => sceneRoutes(currentScene), [currentScene])
+
   const currentRoute = useMemo(
     () => routes.find((item) => item.id === selectedRoute) ?? routes[0],
-    [selectedRoute]
+    [routes, selectedRoute]
+  )
+
+  const narrativeBeats = currentScene.scene_steps
+  const sceneTargetText = `${currentScene.identity.scene_label}: ${narrativeBeats.join(' ')}`
+  const knowledgeDeepLinks = currentScene.related_archives
+
+  useEffect(() => {
+    setLearningNote(readLearningNote(currentScene.identity.scene_id))
+    setLearningNoteSaved(false)
+    setLearningNoteAi({ error: '', result: null })
+  }, [currentScene])
+
+  const sceneContext = useMemo(
+    () =>
+      [
+        currentScene.atang_context.base_context,
+        currentScene.atang_context.role,
+        currentScene.atang_context.safety,
+        `Scene steps: ${narrativeBeats.join(' ')}`,
+        `Central question: ${currentScene.core_question}`,
+        `Selected route: ${currentRoute.label}. ${currentRoute.explanation}`
+      ].join(' '),
+    [currentRoute, currentScene, narrativeBeats]
   )
 
   async function askAtang(event) {
@@ -125,32 +145,95 @@ export function ArchiveOfSparks({ onNavigate }) {
     setAtangArchives([])
 
     try {
-      const response = await fetch(apiUrl('/api/story/character-chat'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          character: 'Atang',
-          scene_context:
-            'Archive of Sparks Chapter 0. The player is a delivery worker receiving platform orders under a tight timer. The route is optimized by an algorithm, and the worker feels controlled by the system.',
-          route: currentRoute.apiRoute,
-          question
-        })
+      const data = await characterChat({
+        character: 'Atang',
+        scene_context: sceneContext,
+        route: currentRoute.apiRoute,
+        question
       })
 
-      if (!response.ok) {
-        throw new Error(`Backend returned ${response.status}`)
-      }
-
-      const data = await response.json()
       setAtangAnswer(data.answer || 'Atang did not return an answer.')
       setAtangArchives(data.suggested_archives || [])
     } catch (error) {
-      setAtangError('Atang is unavailable. Start the backend or configure VITE_API_BASE_URL and try again.')
+      const message = error instanceof Error ? error.message : ''
+      setAtangError(
+        message || 'Atang is unavailable. Start the backend or configure VITE_API_BASE_URL and try again.'
+      )
     } finally {
       setAtangLoading(false)
     }
+  }
+
+  function updateLearningNote(field, value) {
+    setLearningNote((current) => ({
+      ...current,
+      sceneId: currentScene.identity.scene_id,
+      [field]: value
+    }))
+    setLearningNoteSaved(false)
+  }
+
+  function saveLearningNote(event) {
+    event.preventDefault()
+    const now = new Date().toISOString()
+    const nextNote = {
+      ...learningNote,
+      sceneId: currentScene.identity.scene_id,
+      selectedRoute: currentRoute.id,
+      selectedRouteLabel: currentRoute.label,
+      createdAt: learningNote.createdAt || now,
+      updatedAt: now
+    }
+    setLearningNote(nextNote)
+    writeLearningNote(currentScene.identity.scene_id, nextNote)
+    setLearningNoteSaved(true)
+  }
+
+  async function improveLearningNote() {
+    const formattedNote = formatLearningNote(learningNote).trim()
+    if (!learningNote.noticedProblem && !learningNote.routeReflection && !learningNote.remainingQuestion) {
+      setLearningNoteAi({
+        error: 'Write a learning note first, then ask AI to improve it.',
+        result: null
+      })
+      return
+    }
+
+    setLearningNoteAiLoading(true)
+    setLearningNoteAi({ error: '', result: null })
+
+    try {
+      const result = await improveAnnotation({
+        source_text: `${sceneContext}\n\nCurrent route: ${currentRoute.label}`,
+        annotation: formattedNote
+      })
+      setLearningNoteAi({ error: '', result })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ''
+      setLearningNoteAi({
+        error: message || 'AI learning note improvement is unavailable. Start the backend and try again.',
+        result: null
+      })
+    } finally {
+      setLearningNoteAiLoading(false)
+    }
+  }
+
+  function useImprovedLearningNote() {
+    if (!learningNoteAi.result?.improved_annotation) {
+      return
+    }
+
+    const now = new Date().toISOString()
+    const nextNote = {
+      ...learningNote,
+      sceneId: currentScene.identity.scene_id,
+      improvedNote: learningNoteAi.result.improved_annotation,
+      updatedAt: now
+    }
+    setLearningNote(nextNote)
+    writeLearningNote(currentScene.identity.scene_id, nextNote)
+    setLearningNoteSaved(true)
   }
 
   return (
@@ -161,8 +244,8 @@ export function ArchiveOfSparks({ onNavigate }) {
 
       <section className="archive-hero">
         <p className="eyebrow">Interactive narrative prototype</p>
-        <h1>Archive of Sparks: Chapter 0 — Trapped People</h1>
-        <p className="archive-opening">Everyone is busy. But few people know why they are busy.</p>
+        <h1>{currentScene.title}</h1>
+        <p className="archive-opening">{currentScene.opening_text}</p>
       </section>
 
       <section className="archive-card">
@@ -189,8 +272,8 @@ export function ArchiveOfSparks({ onNavigate }) {
         <>
           <section className="archive-card narrative-card">
             <div>
-              <p className="archive-step">Delivery Worker scene</p>
-              <h2>A shift governed by the platform</h2>
+              <p className="archive-step">{currentScene.identity.scene_label}</p>
+              <h2>{currentScene.identity.scene_title}</h2>
             </div>
             <ol className="narrative-list">
               {narrativeBeats.map((beat) => (
@@ -200,12 +283,12 @@ export function ArchiveOfSparks({ onNavigate }) {
           </section>
           <AnnotationPanel
             pageId={ARCHIVE_PAGE_ID}
-            targetId={SCENE_IDS.deliveryWorker}
-            targetText={deliveryWorkerTargetText}
+            targetId={currentScene.identity.scene_id}
+            targetText={sceneTargetText}
           />
 
           <section className="archive-question">
-            <h2>Why are contemporary workers managed by algorithms and platforms?</h2>
+            <h2>{currentScene.core_question}</h2>
           </section>
 
           <section className="archive-card">
@@ -237,8 +320,11 @@ export function ArchiveOfSparks({ onNavigate }) {
               <p className="archive-step">Related archive links</p>
               <ul className="archive-links">
                 {currentRoute.links.map((link) => (
-                  <li key={link}>
-                    <a href={link}>{link}</a>
+                  <li key={link.href}>
+                    <a href={link.href}>
+                      <span>{link.label}</span>
+                      <small>{link.href}</small>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -281,12 +367,111 @@ export function ArchiveOfSparks({ onNavigate }) {
                   <ul className="archive-links atang-links">
                     {atangArchives.map((archive) => (
                       <li key={archive.path}>
-                        <a href={archive.path}>{archive.title}</a>
+                        <a href={archive.path}>
+                          <span>{archive.title}</span>
+                          <small>{archive.path}</small>
+                        </a>
                       </li>
                     ))}
                   </ul>
                 ) : null}
               </div>
+            </div>
+          </section>
+
+          <section className="archive-card learning-note-card">
+            <div>
+              <p className="archive-step">Your Learning Note</p>
+              <h2>Write a short output</h2>
+              <p>
+                Save a small note about what you understood. It stays in this browser for the MVP
+                and can be edited after refresh.
+              </p>
+            </div>
+            <div>
+              <form className="learning-note-form" onSubmit={saveLearningNote}>
+                <label htmlFor="learning-note-problem">What problem did you notice in this scene?</label>
+                <textarea
+                  id="learning-note-problem"
+                  value={learningNote.noticedProblem}
+                  onChange={(event) => updateLearningNote('noticedProblem', event.target.value)}
+                  rows={3}
+                  placeholder="Example: the worker has little control over time, route, and evaluation."
+                />
+
+                <label htmlFor="learning-note-route">Which explanation route did you choose, and why?</label>
+                <textarea
+                  id="learning-note-route"
+                  value={learningNote.routeReflection}
+                  onChange={(event) => updateLearningNote('routeReflection', event.target.value)}
+                  rows={3}
+                  placeholder={`Current route: ${currentRoute.label}. Why does this route help explain the scene?`}
+                />
+
+                <label htmlFor="learning-note-question">What question do you still have?</label>
+                <textarea
+                  id="learning-note-question"
+                  value={learningNote.remainingQuestion}
+                  onChange={(event) => updateLearningNote('remainingQuestion', event.target.value)}
+                  rows={3}
+                  placeholder="Example: who decides what the platform should optimize?"
+                />
+
+                <div className="learning-note-actions">
+                  <button type="submit">Save learning note</button>
+                  <button type="button" onClick={improveLearningNote} disabled={learningNoteAiLoading}>
+                    {learningNoteAiLoading ? 'Improving...' : 'Improve with AI'}
+                  </button>
+                </div>
+              </form>
+
+              <div className="learning-note-status" aria-live="polite">
+                {learningNoteSaved ? <p>Learning note saved in this browser.</p> : null}
+                {learningNote.updatedAt ? <p>Last saved: {new Date(learningNote.updatedAt).toLocaleString()}</p> : null}
+                {learningNoteAi.error ? <p className="ai-tutor-error">{learningNoteAi.error}</p> : null}
+                {learningNoteAi.result ? (
+                  <section className="learning-note-ai-result">
+                    <h3>AI suggestion</h3>
+                    <p>
+                      <strong>Feedback:</strong> {learningNoteAi.result.feedback}
+                    </p>
+                    <p>
+                      <strong>Improved version:</strong> {learningNoteAi.result.improved_annotation}
+                    </p>
+                    <p>
+                      <strong>Follow-up question:</strong> {learningNoteAi.result.follow_up_question}
+                    </p>
+                    <button type="button" onClick={useImprovedLearningNote}>
+                      Use improved version
+                    </button>
+                  </section>
+                ) : null}
+                {learningNote.improvedNote ? (
+                  <section className="learning-note-improved">
+                    <h3>Saved improved version</h3>
+                    <p>{learningNote.improvedNote}</p>
+                  </section>
+                ) : null}
+              </div>
+            </div>
+          </section>
+
+          <section className="archive-card knowledge-deeper-card">
+            <div>
+              <p className="archive-step">Go deeper in Knowledge Platform</p>
+              <h2>Turn the scene into study routes</h2>
+              <p>
+                The delivery scene is a starting point. Follow one of these paths to connect the
+                story problem to the wider knowledge base.
+              </p>
+            </div>
+            <div className="knowledge-deeper-grid">
+              {knowledgeDeepLinks.map((item) => (
+                <a className="knowledge-deeper-link" href={item.href} key={item.title}>
+                  <strong>{item.title}</strong>
+                  <span>{item.description}</span>
+                </a>
+              ))}
             </div>
           </section>
         </>

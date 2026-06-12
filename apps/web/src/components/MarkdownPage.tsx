@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { apiUrl } from '../api'
+import { ApiError, loadMarkdown as loadMarkdownContent } from '../api'
 
 export type MarkdownPageProps = {
   contentPath: string
@@ -25,30 +25,7 @@ export function MarkdownPage({ contentPath, title, afterContent }: MarkdownPageP
       setNotFound(false)
       setMarkdown('')
       try {
-        const response = await fetch(
-          apiUrl(`/api/content/markdown?path=${encodeURIComponent(contentPath)}`),
-          { signal: controller.signal }
-        )
-
-        const responseText = await response.text()
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            setNotFound(true)
-            return
-          }
-
-          let detail = 'This Markdown page could not be loaded.'
-          try {
-            const parsed = JSON.parse(responseText) as { detail?: string }
-            if (parsed.detail) {
-              detail = parsed.detail
-            }
-          } catch {
-            // Keep the friendly fallback instead of rendering raw backend output.
-          }
-          throw new Error(detail)
-        }
+        const responseText = await loadMarkdownContent(contentPath, controller.signal)
 
         if (!responseText.trim()) {
           setNotFound(true)
@@ -58,6 +35,11 @@ export function MarkdownPage({ contentPath, title, afterContent }: MarkdownPageP
         setMarkdown(responseText)
       } catch (loadError) {
         if ((loadError as Error).name !== 'AbortError') {
+          if (loadError instanceof ApiError && loadError.status === 404) {
+            setNotFound(true)
+            return
+          }
+
           setError(
             (loadError as Error).message ||
               'This Markdown page could not be loaded. Start the backend and try again.'
